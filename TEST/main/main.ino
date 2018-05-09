@@ -7,7 +7,32 @@
 dht11pro DHT11; //空气温湿度检测模块
 
 const int DHT11PIN = 22; //DHT11的数据读取引脚为22
+const int RM5 = 32;
 
+/*
+读取土壤湿度，读取值范围为234（水中）—1023（空气中）
+*/
+void getGroudHum() {
+  //Serial.println("土壤湿度传感器模块：");
+  float data = analogRead(0);
+  int key_status = digitalRead(RM5); //1：未达到湿度要求
+  if (key_status == 1)
+  {
+    float humidty = (1 - (data - 223)/800)*100;
+    Serial.println("土壤过于干燥");
+    Serial.print("湿度： ");
+    Serial.print(humidty);
+    Serial.println("%");
+  }
+  else
+  {
+    Serial.println("土壤湿度达标");
+    float humidty = (1 - (data - 223)/800)*100;
+    Serial.print("湿度： ");
+    Serial.print(humidty);
+    Serial.println("%");
+  }
+}
 //摄氏温度度转化为华氏温度
 double Fahrenheit(double celsius)
 {
@@ -48,8 +73,8 @@ double dewPointFast(double celsius, double humidity)
 
 
 /*获取温湿度数据
-type值默认1，输出温湿度；  
-type=0，输出额外内容
+  type值默认1，输出温湿度；
+  type=0，输出额外内容
 */
 void getHumAndTemp(int type = 1)
 {
@@ -91,8 +116,10 @@ void getHumAndTemp(int type = 1)
     Serial.println(dewPointFast(DHT11.temperature, DHT11.humidity));
   }
 }
+
 void setup()
 {
+  pinMode(RM5, INPUT);
   Serial.begin(9600);
   Serial.println("DHT11 TEST PROGRAM ");
   Serial.print("LIBRARY VERSION: ");
@@ -102,6 +129,9 @@ void setup()
 
 void loop()
 {
+  getGroudHum();
   getHumAndTemp();
-  delay(5000);
+  delay(3000);
 }
+
+
