@@ -56,14 +56,14 @@ void dht11Bean::getHumAndTemp(int type = 1)
 {
   //Serial.println("\n");
   int chk = DHTPRO.read(DHT11PIN); //获取当前的温湿度传感器状态
-  Serial.print("空气温湿度传感器: ");
-  switch (chk)
+  Serial.println("空气温湿度传感器: ");
+/*  switch (chk)
   {
     case DHTLIB_OK:
       Serial.println("OK");
       break;
     case DHTLIB_ERROR_CHECKSUM:
-      Serial.println("OK");
+      Serial.println("checkSum error");
       break;
     case DHTLIB_ERROR_TIMEOUT:
       Serial.println("Time out error");
@@ -71,7 +71,7 @@ void dht11Bean::getHumAndTemp(int type = 1)
     default:
       Serial.println("Unknown error");
       break;
-  }
+  }*/
   Serial.print("空气湿度 (%): ");
   Serial.println((float)(DHTPRO.humidity + DHTPRO.hum_low * 0.01), 2);
 

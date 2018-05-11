@@ -15,7 +15,7 @@ void getLux()
   BH1750_Init(BH1750address);
 
   //delay(1000);
-
+  Serial.println("GY-30光照强度传感器：");
   if(2==BH1750_Read(BH1750address))
 
   {
@@ -24,7 +24,7 @@ void getLux()
 
    Serial.print("光照强度（Lux）：");
 
-   Serial.print(val,DEC);     
+   Serial.println(val,DEC);     
 
   }
 
@@ -32,7 +32,7 @@ void getLux()
 
 
 
-int BH1750_Read(int address) //
+int BH1750_Read(int address)
 
 {
 
