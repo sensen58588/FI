@@ -5,6 +5,6 @@
 void setD0PinNum(int pinNumber);
 void setA0PinNum(int pinNumber);
 void initMQ2(int A0, int D0);
-void getMQ2Data();
+double getMQ2Data();
 
 #endif
