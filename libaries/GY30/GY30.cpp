@@ -2,13 +2,13 @@
 #include <Wire.h>
 #include <Arduino.h>
 
-int BH1750address = 0x23;//芯片地址为16位23
+int BH1750address = 0x23;//芯片地址为16位23 初始化固定地址
 
 byte buff[2];
 
-void getLux()
+int getLux()
 {
-  int i;
+  int res = 0;
 
   uint16_t val=0;
 
@@ -24,9 +24,11 @@ void getLux()
 
    Serial.print("光照强度（Lux）：");
 
-   Serial.println(val,DEC);     
+   Serial.println(val,DEC);
+   res = val;  
 
   }
+  return res;
 
 }
 
