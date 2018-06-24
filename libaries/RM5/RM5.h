@@ -2,7 +2,7 @@
 #ifndef RM5_H
 #define RM5_H
 
-void getGroudHum(); //输出土壤湿度
+double getGroudHum(); //输出土壤湿度
 bool setHumidtyThreshold (int value); //设置土壤湿度的阈值
 bool setRM5PinNumber(int number);
 

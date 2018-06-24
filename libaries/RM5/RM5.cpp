@@ -25,20 +25,20 @@ bool setHumidtyThreshold (int value) //设置土壤湿度的阈值
 		return false;
 }
 
-void getGroudHum() 
+double getGroudHum() 
 {
+	double res = 0;
 	float data = analogRead(pinNumber);
-	// Serial.print("data is");
-	// Serial.println(data);
 	float humidty = ((1023 - data) / 1023) * 100;
+	res = (double)humidty;
 	Serial.println("土壤湿度传感器模块：");
 	Serial.print("土壤湿度： ");
 	Serial.print(humidty);
 	Serial.print("% ");
 	if (humidty<humidtyThreshold)
-	{
-		Serial.println("(土壤过于干燥！)");
-	
-	}else
+		Serial.println("(土壤过于干燥！)");	
+	else
 		Serial.println("(土壤湿度适宜！)");
+
+	return res;
 }
