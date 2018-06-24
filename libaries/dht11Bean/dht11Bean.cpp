@@ -1,9 +1,13 @@
 #include <dht11Bean.h>
 #include <dht11pro.h>
+/*
+DHT11是一款有已校准数字信号输出的温湿度传感器。 其精度湿度+-5%RH， 
+温度+-2℃，量程湿度20-90%RH， 温度0~50℃。
+*/
+
 
 dht11pro DHTPRO;
 int DHT11PIN = 22;//DHT11的数据读取引脚默认为22
-
 //------------------------START-----------------------------
 void dht11Bean::setPin(int pin)
 {
@@ -52,12 +56,11 @@ double dht11Bean::dewPointFast(double celsius, double humidity)
   type值默认1，输出温湿度；
   type=0，输出额外内容
 */
-void dht11Bean::getHumAndTemp(int type = 1)
+void dht11Bean::showHumAndTemp(int type = 1)
 {
-  //Serial.println("\n");
   int chk = DHTPRO.read(DHT11PIN); //获取当前的温湿度传感器状态
   Serial.println("空气温湿度传感器: ");
-/*  switch (chk)
+  switch (chk)
   {
     case DHTLIB_OK:
       Serial.println("OK");
@@ -71,7 +74,7 @@ void dht11Bean::getHumAndTemp(int type = 1)
     default:
       Serial.println("Unknown error");
       break;
-  }*/
+  }
   Serial.print("空气湿度 (%): ");
   Serial.println((float)(DHTPRO.humidity + DHTPRO.hum_low * 0.01), 2);
 
@@ -92,5 +95,12 @@ void dht11Bean::getHumAndTemp(int type = 1)
     Serial.println(dewPointFast(DHTPRO.temperature, DHTPRO.humidity));
   }
 }
-
+  double dht11Bean::getHumity()
+  {
+    return DHTPRO.humidity + DHTPRO.hum_low * 0.01;
+  }
+  double dht11Bean::getTemp()
+  {
+    return DHTPRO.temperature + DHTPRO.temp_low * 0.01;
+  }
 //--------------------END----------------------
